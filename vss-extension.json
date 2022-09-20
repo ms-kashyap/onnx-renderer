@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "onnx-renderer",
-    "publisher": "",
+    "publisher": "KashyapPatel",
     "version": "1.0.0",
     "name": "ONNX Model Renderer",
     "description": "Renders files with the .onnx extension",
