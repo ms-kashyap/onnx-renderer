@@ -9,7 +9,7 @@ var onnxRenderer = (function () {
             document.getElementById("rawContentLength").innerText = rawContent.length;
 
             var renderUX = document.getElementById("model-display");
-            // TODO: Call render(rawPayload, renderUX) here
+            renderer.render(rawPayload, renderUX);
         }
     };
 }());
