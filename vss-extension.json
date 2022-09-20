@@ -16,20 +16,28 @@
     ],
     "contributions": [
         {
-            "id": "my-hub",
-            "type": "ms.vss-web.hub",
+            "id": "onnx_renderer",
+            "type": "ms.vss-code-web.content-renderer",
+            "description": "The collection of registered content renderers which each display file content for particular file types",
             "targets": [
-                "ms.vss-code-web.code-hub-group"
+                "ms.vss-code-web.content-renderer-collection"
             ],
             "properties": {
-                "name": "My Hub",
-                "uri": "my-hub.html"
+                "uri": "onnx-renderer.html",
+                "fileExtensions": [
+                    "onnx"
+                ],
+                "mimeTypes": [
+                    "text/html"
+                ],
+                "defaultBehavior": "showRenderedContent",
+                "registeredObjectId": "onnx_renderer"
             }
         }
     ],
     "files": [
         {
-            "path": "my-hub.html",
+            "path": "onnx-renderer.html",
             "addressable": true
         },
         {
