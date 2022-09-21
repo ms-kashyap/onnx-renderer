@@ -13,7 +13,7 @@ var renderer = (function() {
         t.setAttribute('id', 'model-container');
         target.appendChild(t);
 
-
+        // TODO: Code to render model from raw payload
     }
 
     return {
