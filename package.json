@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/ms-kashyap/onnx-renderer#readme",
   "dependencies": {
+    "@paddlejs/netron": "^0.6.4",
+    "browserify": "^17.0.0",
     "vss-web-extension-sdk": "^5.141.0"
   }
 }

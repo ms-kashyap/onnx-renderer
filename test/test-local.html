@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-    <script type="text/javascript" src="test-local.js"></script>
+    <title>ONNX Renderer</title>
+    <script src="bundle.js"></script>
 </head>
 <body>        
-    <input type="file" id="file-selector">
+    <input type="file" id="file-selector" title="select an onnx model" placeholder="" />
 
     <h1>The raw content length is: <span id="rawContentLength"></span></h1>
 
     <div class="container container-main">
-        <div id="notebook-display"></div>
+        <div id="model-display"></div>
     </div>
 </body>
 </html>
