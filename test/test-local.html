@@ -1,32 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-    <script type="module" src="./lib/netron/models.js"></script>
+    <script type="text/javascript" src="test-local.js"></script>
 </head>
 <body>        
     <input type="file" id="file-selector">
 
     <h1>The raw content length is: <span id="rawContentLength"></span></h1>
-
-    <script type="module">
-        console.log("In script");
-
-        // When the model is uploaded, update the rawContentLength
-        document.getElementById("file-selector").addEventListener("change", function() {
-            var fr = new FileReader();
-            fr.onload = function() {
-                document.getElementById("rawContentLength").textContent = fr.result.length;
-            }
-
-            fr.readAsText(this.files[0]);
-        });
-
-        // Visualize the uploaded model
-        // import { TestHost } from './lib/netron/models.js';
-
-        // const host = new models.TestHost();
-        // const modelFactoryService = new view.ModelFactoryService(host);
-    </script>
 
     <div class="container container-main">
         <div id="notebook-display"></div>
