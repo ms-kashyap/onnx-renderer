@@ -88,7 +88,7 @@ host.BrowserHost = class {
                     if (this._telemetry) {
                         const script = this.document.createElement('script');
                         script.setAttribute('type', 'text/javascript');
-                        script.setAttribute('src', 'https://www.google-analytics.com/analytics.js');
+                        // script.setAttribute('src', 'https://www.google-analytics.com/analytics.js');
                         script.onload = () => {
                             if (this.window.ga) {
                                 this.window.ga.l = 1 * new Date();
@@ -116,7 +116,9 @@ host.BrowserHost = class {
                     telemetry();
                 }
                 else {
+                    // TODO: Do we allow netron to log analytics and telemetry without the user accepting consent?
                     this._request('https://ipinfo.io/json', { 'Content-Type': 'application/json' }, 'utf-8', null, 2000).then((text) => {
+                        console.log("Got IP info", text);
                         try {
                             const json = JSON.parse(text);
                             const countries = ['AT', 'BE', 'BG', 'HR', 'CZ', 'CY', 'DK', 'EE', 'FI', 'FR', 'DE', 'EL', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'SK', 'ES', 'SE', 'GB', 'UK', 'GR', 'EU', 'RO'];
@@ -221,7 +223,8 @@ host.BrowserHost = class {
             click: () => this._about()
         });
 
-        this.document.getElementById('version').innerText = this.version;
+        // Commented
+        // this.document.getElementById('version').innerText = this.version;
 
         if (this._meta.file) {
             const url = this._meta.file[0];
@@ -501,6 +504,7 @@ host.BrowserHost = class {
     }
 
     _openModel(url, identifier) {
+        console.log("Open model", url, identifier);
         url = url + ((/\?/).test(url) ? '&' : '?') + 'cb=' + (new Date()).getTime();
         this._view.show('welcome spinner');
         const progress = (value) => {
@@ -518,6 +522,26 @@ host.BrowserHost = class {
         }).catch((err) => {
             this.error('Model load request failed.', err.message);
             this._view.show('welcome');
+        });
+    }
+
+    // Added
+    _openStream(stream) {
+        const url = `${stream.length}.onnx`;
+        
+        // Setting to null is OK since context.identifier will be populated with the file name (AKA the url)
+        const identifier = null;
+
+        console.log("url", url);
+        console.log("identifier", identifier);
+
+        const context = new host.BrowserHost.BrowserContext(this, url, identifier, stream);
+        return this._view.open(context).then(() => {
+            return identifier || context.identifier;
+        }).catch((err) => {
+            if (err) {
+                this._view.error(err, null, 'welcome');
+            }
         });
     }
 
@@ -962,4 +986,20 @@ if (!('scrollBehavior' in window.document.documentElement.style)) {
 window.addEventListener('load', () => {
     window.__host__ = new host.BrowserHost();
     window.__view__ = new view.View(window.__host__);
+
+    // Added
+    document.getElementById("file-selector").addEventListener("change", function (e1) {
+        const blob = e1.target.files[0];
+        console.log("blob", blob);
+
+        var fr = new FileReader();
+        fr.onload = function (e2) {
+            const stream = new host.BrowserHost.BinaryStream(new Uint8Array(e2.target.result));
+            console.log("stream", stream);
+
+            window.__host__._openStream(stream);
+        }
+
+        fr.readAsArrayBuffer(blob);
+    });
 });

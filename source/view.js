@@ -16,6 +16,7 @@ var grapher = grapher || require('./view-grapher');
 view.View = class {
 
     constructor(host, id) {
+        console.log("constructor", host, id);
         this._host = host;
         this._id = id ? ('-' + id) : '';
         this._options = {
@@ -26,6 +27,7 @@ view.View = class {
             mousewheel: 'scroll'
         };
         this._host.initialize(this).then(() => {
+            console.log("then");
             this._model = null;
             this._graphs = [];
             this._selection = [];
@@ -463,6 +465,7 @@ view.View = class {
     }
 
     _updateGraph(model, graphs) {
+        console.log("Updating graph", model, graphs);
         return this._timeout(100).then(() => {
             const graph = Array.isArray(graphs) && graphs.length > 0 ? graphs[0] : null;
             if (graph && graph != this._graphs[0]) {
