@@ -13,6 +13,15 @@ npm install
 npx tfx-cli extension create
 ```
 
+## Local Testing
+
+```powershell
+cd test
+browserify test-local.js -o bundle.js
+```
+
+Now open `test\index.html` in a browser. Upload a model from the `test\models` folder.
+
 ## References
 
 - [Manage Extensions](https://marketplace.visualstudio.com/manage/publishers/kashyappatel)

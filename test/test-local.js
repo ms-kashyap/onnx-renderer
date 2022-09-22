@@ -1,15 +1,18 @@
-var rm = require('../scripts/renderer.js');
+var rm = require('./renderer.js');
 
 window.onload = function () {
     console.log("Page loaded");
 
-    document.getElementById("file-selector").addEventListener("change", function () {
+    document.getElementById("file-selector").addEventListener("change", function (e1) {
         var fr = new FileReader();
-        fr.onload = function () {
+        fr.onload = function (e2) {
             var renderUX = document.getElementById("model-display");
-            rm.render(fr.result, renderUX);
+
+            const files = Array.from(e1.target.files);
+
+            rm.render(files, e2.target.result, renderUX);
         }
 
-        fr.readAsText(this.files[0]);
+        fr.readAsArrayBuffer(this.files[0]);
     });
 }
