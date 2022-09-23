@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "onnx-renderer",
     "publisher": "KashyapPatel",
-    "version": "1.0.2",
+    "version": "1.0.34",
     "name": "ONNX Model Renderer",
     "description": "Renders files with the .onnx extension",
     "public": false,
@@ -23,7 +23,7 @@
                 "ms.vss-code-web.content-renderer-collection"
             ],
             "properties": {
-                "uri": "onnx-renderer.html",
+                "uri": "source/index.html",
                 "fileExtensions": [
                     "onnx"
                 ],
@@ -37,11 +37,7 @@
     ],
     "files": [
         {
-            "path": "onnx-renderer.html",
-            "addressable": true
-        },
-        {
-            "path": "scripts",
+            "path": "source",
             "addressable": true
         },
         {

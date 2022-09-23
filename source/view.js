@@ -32,6 +32,8 @@ view.View = class {
             this._graphs = [];
             this._selection = [];
             this._sidebar = new sidebar.Sidebar(this._host, id);
+            console.log("Created sidebar", this._sidebar);
+
             this._searchText = '';
             this._modelFactoryService = new view.ModelFactoryService(this._host);
             this._getElementById('zoom-in-button').addEventListener('click', () => {
@@ -411,11 +413,13 @@ view.View = class {
         const known = knowns.find((known) => (known.name.length === 0 || known.name === err.name) && err.message.match(known.message));
         const message = err.message + (known ? '\n\nPlease provide information about this issue at ' + known.url + '.' : '');
         name = name || err.name;
-        this._host.error(name, message);
-        this.show(screen !== undefined ? screen : 'welcome');
-        if (known) {
-            this._host.openURL(known.url);
-        }
+        
+        // Commented
+        // this._host.error(name, message);
+        // this.show(screen !== undefined ? screen : 'welcome');
+        // if (known) {
+        //     this._host.openURL(known.url);
+        // }
     }
 
     accept(file) {
@@ -424,6 +428,7 @@ view.View = class {
 
     open(context) {
         this._host.event('Model', 'Open', 'Size', context.stream ? context.stream.length : 0);
+        console.log("Closing sidebar", this._sidebar);
         this._sidebar.close();
         return this._timeout(2).then(() => {
             return this._modelFactoryService.open(context).then((model) => {

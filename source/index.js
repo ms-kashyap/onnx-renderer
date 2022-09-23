@@ -117,25 +117,26 @@ host.BrowserHost = class {
                 }
                 else {
                     // TODO: Do we allow netron to log analytics and telemetry without the user accepting consent?
-                    this._request('https://ipinfo.io/json', { 'Content-Type': 'application/json' }, 'utf-8', null, 2000).then((text) => {
-                        console.log("Got IP info", text);
-                        try {
-                            const json = JSON.parse(text);
-                            const countries = ['AT', 'BE', 'BG', 'HR', 'CZ', 'CY', 'DK', 'EE', 'FI', 'FR', 'DE', 'EL', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'SK', 'ES', 'SE', 'GB', 'UK', 'GR', 'EU', 'RO'];
-                            if (json && json.country && !countries.indexOf(json.country) !== -1) {
-                                this._setCookie('consent', Date.now(), 30);
-                                telemetry();
-                            }
-                            else {
-                                consent();
-                            }
-                        }
-                        catch (err) {
-                            consent();
-                        }
-                    }).catch(() => {
-                        consent();
-                    });
+                    // this._request('https://ipinfo.io/json', { 'Content-Type': 'application/json' }, 'utf-8', null, 2000).then((text) => {
+                    //     console.log("Got IP info", text);
+                    //     try {
+                    //         const json = JSON.parse(text);
+                    //         const countries = ['AT', 'BE', 'BG', 'HR', 'CZ', 'CY', 'DK', 'EE', 'FI', 'FR', 'DE', 'EL', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'SK', 'ES', 'SE', 'GB', 'UK', 'GR', 'EU', 'RO'];
+                    //         if (json && json.country && !countries.indexOf(json.country) !== -1) {
+                    //             this._setCookie('consent', Date.now(), 30);
+                    //             telemetry();
+                    //         }
+                    //         else {
+                    //             consent();
+                    //         }
+                    //     }
+                    //     catch (err) {
+                    //         consent();
+                    //     }
+                    // }).catch(() => {
+                    //     consent();
+                    // });
+                    telemetry();
                 }
             }
         });
@@ -534,6 +535,7 @@ host.BrowserHost = class {
 
         console.log("url", url);
         console.log("identifier", identifier);
+        console.log("view", this._view);
 
         const context = new host.BrowserHost.BrowserContext(this, url, identifier, stream);
         return this._view.open(context).then(() => {
@@ -988,18 +990,18 @@ window.addEventListener('load', () => {
     window.__view__ = new view.View(window.__host__);
 
     // Added
-    document.getElementById("file-selector").addEventListener("change", function (e1) {
-        const blob = e1.target.files[0];
-        console.log("blob", blob);
+    // document.getElementById("file-selector").addEventListener("change", function (e1) {
+    //     const blob = e1.target.files[0];
+    //     console.log("blob", blob);
 
-        var fr = new FileReader();
-        fr.onload = function (e2) {
-            const stream = new host.BrowserHost.BinaryStream(new Uint8Array(e2.target.result));
-            console.log("stream", stream);
+    //     var fr = new FileReader();
+    //     fr.onload = function (e2) {
+    //         const stream = new host.BrowserHost.BinaryStream(new Uint8Array(e2.target.result));
+    //         console.log("stream", stream);
 
-            window.__host__._openStream(stream);
-        }
+    //         window.__host__._openStream(stream);
+    //     }
 
-        fr.readAsArrayBuffer(blob);
-    });
+    //     fr.readAsArrayBuffer(blob);
+    // });
 });

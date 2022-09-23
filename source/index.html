@@ -3,7 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!--
+Due to the following VSS.SDK.min.js error, disabling the meta tag:
+Refused to load the script 'https://dev.azure.com/kpatel370/_public/_Bundling/Content?bundle=vss-bundle-basejs-vx38JYf0FTtFkI9k88H54KYCLs9sIP_6xJwgWGnd-xvw=' because it violates the following Content Security Policy directive: "script-src 'self' www.google-analytics.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
 <meta http-equiv="Content-Security-Policy" content="script-src 'self' www.google-analytics.com;">
+-->
+
 <meta name="version" content="0.0.0">
 <meta name="date" content="">
 <title>Netron</title>
@@ -30,6 +36,12 @@
 <script type="text/javascript" src="view-sidebar.js"></script>
 <script type="text/javascript" src="view.js"></script>
 <script type="text/javascript" src="index.js"></script>
+
+<!-- Added -->
+<!-- In vss-extension.json, we define a symlink from node_modules/vss-web-extension-sdk/lib to lib/ -->
+<script type="text/javascript" src="../lib/VSS.SDK.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
 <style>
 html { touch-action: none; overflow: hidden; width: 100%; height: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility; -webkit-text-rendering: optimizeLegibility; -moz-text-rendering: optimizeLegibility; -ms-text-rendering: optimizeLegibility; -o-text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-font-smoothing: antialiased; -ms-font-smoothing: antialiased; -o-font-smoothing: antialiased; }
 body { touch-action: none; overflow: hidden; width: 100%; height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "PingFang SC"; font-size: 12px; text-rendering: geometricPrecision; }
